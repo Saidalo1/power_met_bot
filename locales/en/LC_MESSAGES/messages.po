@@ -19,7 +19,7 @@ msgstr ""
 "Generated-By: Babel 2.9.1\n"
 
 msgid "GREETING_TEXT"
-msgstr "👋 Hello! We are Powermet International, a company specializing in 🔌 petrol ⛽️ and diesel ⛽️ generators. In our bot, you can get advice and find the perfect generator based on your needs and power requirements. 💡😊 Welcome! To get started, choose one of the available options below or use the menu. We are ready to assist you with any questions! 💪"
+msgstr "Hello! You are welcomed by the campaign - POWERMET INTERNATIONAL, we specialize in gasoline and diesel generators, on our service you have the opportunity to get advice or choose a generator for yourself🏭"
 
 msgid "ERROR_LANGUAGE"
 msgstr "❌ Oops, it seems you entered incorrectly! Please select one of the options using the buttons. 👇"
@@ -50,3 +50,48 @@ msgstr "📮 Please send us your address so we can deliver your order."
 
 msgid "SEND_LOCATION"
 msgstr "🌍 Send Location"
+
+msgid "NEXT"
+msgstr "Next➡️"
+
+msgid "PREVIOUS"
+msgstr "Previous⬅️️"
+
+msgid "CURRENT_PAGE"
+msgstr "Current page📑"
+
+msgid "CHOOSE_GENERATOR"
+msgstr "Choose a generator"
+
+msgid "GENERATOR"
+msgstr "Generator: "
+
+msgid "DETAIL_INFORMATION_ABOUT_GENERATOR"
+msgstr "Detail information about the generator: "
+
+msgid "TITLE_GENERATOR"
+msgstr "Title of generator: "
+
+msgid "POWER"
+msgstr "Power: "
+
+msgid "FUEL_CONSUMPTION"
+msgstr "Fuel consumption: "
+
+msgid "GENERATOR NOT FOUND"
+msgstr "Generator not found!"
+
+msgid "HEIGHT"
+msgstr "Height: "
+
+msgid "LENGTH"
+msgstr "Length: "
+
+msgid "WIDTH"
+msgstr "Width: "
+
+msgid "BACK"
+msgstr "Back🔙"
+
+msgid "MAIN_MENU"
+msgstr "Main Menu"

@@ -7,3 +7,4 @@ class BotStates(StatesGroup):
     send_name = State()
     send_phone = State()
     send_address = State()
+    calculations = State()

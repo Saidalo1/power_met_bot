@@ -19,7 +19,7 @@ msgstr ""
 "Generated-By: Babel 2.9.1\n"
 
 msgid "GREETING_TEXT"
-msgstr "👋 Salom! Biz Powermet International kompaniyasi, benzinli ⛽️ va dizel ⛽️ generatorlarga yo'naltirilgan tashkilotmiz. Botimizda, talablaringiz va quvvat talablaringiz asosida ideal generatorni topishingiz mumkin. 💡😊 Xush kelibsiz! Boshlash uchun, quyidagi imkoniyatlardan birini tanlang yoki menyu orqali foydalaning. Sizga istalgan savollar bilan yordam berishga tayyormiz! 💪"
+msgstr "Salom! Sizni POWERMET INTERNATIONAL aksiyasi kutib oladi, biz benzin va dizel generatorlariga ixtisoslashganmiz, bizning xizmatimizda siz maslahat olish yoki o'zingiz uchun generator tanlash imkoniga egasiz🏭"
 
 msgid "ERROR_LANGUAGE"
 msgstr "❌ Xato, ko'rib turganicha, xato kiritdingiz! Iltimos, tugmalar yordamida variantlardan birini tanlang. 👇"
@@ -50,3 +50,45 @@ msgstr "📮 Iltimos, buyurtmangizni yetkazishimiz uchun manzilingizni yuboring.
 
 msgid "SEND_LOCATION"
 msgstr "🌍 Joylashuvni yuborish"
+
+msgid "NEXT"
+msgstr "Keyingi➡️"
+
+msgid "PREVIOUS"
+msgstr "Oldingi⬅️️"
+
+msgid "CURRENT_PAGE"
+msgstr "Joriy sahifa📑"
+
+msgid "CHOOSE_GENERATOR"
+msgstr "Generator tanlang"
+
+msgid "GENERATOR"
+msgstr "Generator: "
+
+msgid "HEIGHT"
+msgstr "Balandligi: "
+
+msgid "LENGTH"
+msgstr "Uzunlik: "
+
+msgid "WIDTH"
+msgstr "Kengligi: "
+
+msgid "TITLE_GENERATOR"
+msgstr "Generator nomi: "
+
+msgid "POWER"
+msgstr "Quvvati: "
+
+msgid "FUEL_CONSUMPTION"
+msgstr "Yoqilg'i iste'moli: "
+
+msgid "DETAIL_INFORMATION_ABOUT_GENERATOR"
+msgstr "Generator haqida batafsil ma'lumot: "
+
+msgid "BACK"
+msgstr "Ortga🔙"
+
+msgid "MAIN_MENU"
+msgstr "Bosh menu"

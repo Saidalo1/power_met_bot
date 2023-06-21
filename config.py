@@ -47,3 +47,6 @@ default_language = LANGUAGES.get('English language 🇬🇧', 'ru')
 
 # Locale Directory
 LOCALE_DIRECTORY = os_environ_get('LOCALE_DIRECTORY')
+
+# Generators per page
+GENERATORS_PER_PAGE = int(os_environ_get('GENERATORS_PER_PAGE'))

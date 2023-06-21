@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, create_engine
+from sqlalchemy import Column, Integer, String, create_engine, Float, BigInteger
 from sqlalchemy import Index
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -18,7 +18,7 @@ class UserLanguage(Base):
     )
 
     id = Column(Integer, primary_key=True)
-    chat_id = Column(Integer, unique=True)
+    chat_id = Column(BigInteger, unique=True)
     language = Column(String)
 
     def __init__(self, chat_id, language):
@@ -29,24 +29,19 @@ class UserLanguage(Base):
         return f'<UserLanguage(chat_id={self.chat_id}, language={self.language})>'
 
 
-Base.metadata.create_all(engine)
+class Generator(Base):
+    __tablename__ = 'generators'
 
-#
-#
-# class FSMStorage(Base):
-#     __tablename__ = 'fsm_storage'
-#
-#     id = Column(Integer, primary_key=True)
-#     user_id = Column(Integer, index=True)
-#     chat_id = Column(Integer, index=True)
-#     state = Column(String)
-#     data = Column(String)
-#
-#     def __init__(self, user_id, chat_id, state, data):
-#         self.user_id = user_id
-#         self.chat_id = chat_id
-#         self.state = state
-#         self.data = data
-#
-#     def __repr__(self):
-#         return f'<FSMStorage(user_id={self.user_id}, chat_id={self.chat_id}, state={self.state}, data={self.data})>'
+    id = Column(Integer, primary_key=True)
+    name = Column(String, index=True)
+    height = Column(Integer)
+    length = Column(Integer)
+    width = Column(Integer)
+    power = Column(Integer)
+    fuel_consumption = Column(Float)
+
+    def __repr__(self):
+        return f"<Generator(name='{self.name}', power={self.power}, fuel_consumption={self.fuel_consumption})>"
+
+
+Base.metadata.create_all(engine)
