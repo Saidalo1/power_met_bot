@@ -27,3 +27,26 @@ class UserLanguage(Base):
 
     def __repr__(self):
         return f'<UserLanguage(chat_id={self.chat_id}, language={self.language})>'
+
+
+Base.metadata.create_all(engine)
+
+#
+#
+# class FSMStorage(Base):
+#     __tablename__ = 'fsm_storage'
+#
+#     id = Column(Integer, primary_key=True)
+#     user_id = Column(Integer, index=True)
+#     chat_id = Column(Integer, index=True)
+#     state = Column(String)
+#     data = Column(String)
+#
+#     def __init__(self, user_id, chat_id, state, data):
+#         self.user_id = user_id
+#         self.chat_id = chat_id
+#         self.state = state
+#         self.data = data
+#
+#     def __repr__(self):
+#         return f'<FSMStorage(user_id={self.user_id}, chat_id={self.chat_id}, state={self.state}, data={self.data})>'

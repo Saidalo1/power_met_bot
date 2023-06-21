@@ -1,0 +1,52 @@
+# English translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-06-21 07:43+0500\n"
+"PO-Revision-Date: 2023-06-21 07:43+0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+msgid "GREETING_TEXT"
+msgstr "👋 Hello! We are Powermet International, a company specializing in 🔌 petrol ⛽️ and diesel ⛽️ generators. In our bot, you can get advice and find the perfect generator based on your needs and power requirements. 💡😊 Welcome! To get started, choose one of the available options below or use the menu. We are ready to assist you with any questions! 💪"
+
+msgid "ERROR_LANGUAGE"
+msgstr "❌ Oops, it seems you entered incorrectly! Please select one of the options using the buttons. 👇"
+
+msgid "CONSULT"
+msgstr "Consultation"
+
+msgid "CALCULATE"
+msgstr "Calculation"
+
+msgid "SEND_NAME_TEXT"
+msgstr "📝 Please, enter your name."
+
+msgid "CANCEL"
+msgstr "❌ CANCEL"
+
+msgid "SEND_PHONE_TEXT"
+msgstr "📞 Please share your phone number by tapping the button below:"
+
+msgid "SEND_CONTACT"
+msgstr "📞 Send Contact"
+
+msgid "ERROR_NAME_TEXT"
+msgstr "🚫 Sorry, the name you entered is invalid. Please make sure to enter a valid name consisting of letters only (3-30 characters). Try again or click on the button below to start over🙁."
+
+msgid "SEND_ADDRESS_TEXT"
+msgstr "📮 Please send us your address so we can deliver your order."
+
+msgid "SEND_LOCATION"
+msgstr "🌍 Send Location"

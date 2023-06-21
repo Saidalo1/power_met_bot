@@ -1,0 +1,52 @@
+# Uzbek translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-06-21 07:43+0500\n"
+"PO-Revision-Date: 2023-06-21 07:43+0500\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: uz\n"
+"Language-Team: uz <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+msgid "GREETING_TEXT"
+msgstr "👋 Salom! Biz Powermet International kompaniyasi, benzinli ⛽️ va dizel ⛽️ generatorlarga yo'naltirilgan tashkilotmiz. Botimizda, talablaringiz va quvvat talablaringiz asosida ideal generatorni topishingiz mumkin. 💡😊 Xush kelibsiz! Boshlash uchun, quyidagi imkoniyatlardan birini tanlang yoki menyu orqali foydalaning. Sizga istalgan savollar bilan yordam berishga tayyormiz! 💪"
+
+msgid "ERROR_LANGUAGE"
+msgstr "❌ Xato, ko'rib turganicha, xato kiritdingiz! Iltimos, tugmalar yordamida variantlardan birini tanlang. 👇"
+
+msgid "CONSULT"
+msgstr "Maslahatlashuv"
+
+msgid "CALCULATE"
+msgstr "Hisob"
+
+msgid "SEND_NAME_TEXT"
+msgstr "📝 Iltimos, ismingizni kiriting"
+
+msgid "CANCEL"
+msgstr "❌ BEKOR QILISH"
+
+msgid "SEND_PHONE_TEXT"
+msgstr "📞 Iltimos, telefon raqamingizni quyidagi tugmaga bosing:"
+
+msgid "SEND_CONTACT"
+msgstr "📞 Telefon raqamni yuborish"
+
+msgid "ERROR_NAME_TEXT"
+msgstr "🚫 Kechirasiz, kiritgan ism noto'g'ri. Iltimos, faqat harflardan iborat to'g'ri ism kiriting (3-30 belgi). Qaytadan urinib ko'ring yoki pastdagi tugmani bosing🙁."
+
+msgid "SEND_ADDRESS_TEXT"
+msgstr "📮 Iltimos, buyurtmangizni yetkazishimiz uchun manzilingizni yuboring."
+
+msgid "SEND_LOCATION"
+msgstr "🌍 Joylashuvni yuborish"
