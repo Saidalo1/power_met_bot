@@ -50,3 +50,9 @@ LOCALE_DIRECTORY = os_environ_get('LOCALE_DIRECTORY')
 
 # Generators per page
 GENERATORS_PER_PAGE = int(os_environ_get('GENERATORS_PER_PAGE'))
+
+# Sales Department Number
+SALES_DEPARTMENT_PHONE_NUMBER = os_environ_get('SALES_DP_NUM')
+
+# Media URL
+MEDIA_URL = os_environ_get('MEDIA_URL')

@@ -95,3 +95,9 @@ msgstr "Back🔙"
 
 msgid "MAIN_MENU"
 msgstr "Main Menu"
+
+msgid "ORDER"
+msgstr "Order"
+
+msgid 'CALL_FOR_ORDER'
+msgstr "To order a generator, call the number: "

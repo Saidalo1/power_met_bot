@@ -92,3 +92,9 @@ msgstr "Ortga🔙"
 
 msgid "MAIN_MENU"
 msgstr "Bosh menu"
+
+msgid "ORDER"
+msgstr "Buyurtma"
+
+msgid "ORDER"
+msgstr "Generator zakaz qilish uchun, shu raqamga telefon qiling: "

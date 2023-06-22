@@ -1,10 +1,13 @@
-from aiogram.dispatcher import FSMContext
-from aiogram.types import Message, ChatType
+from re import search
 
-from config import start_message, LANGUAGES, bot, GROUP_CHAT_ID, GENERATORS_PER_PAGE, default_language
+from aiogram.dispatcher import FSMContext
+from aiogram.types import Message, ChatType, CallbackQuery
+
+from config import start_message, LANGUAGES, bot, GROUP_CHAT_ID, GENERATORS_PER_PAGE, default_language, \
+    SALES_DEPARTMENT_PHONE_NUMBER
 from fsm_contexts import BotStates
 from keyboards import languages_keyboard, select_category, cancel_keyboard, send_contact_keyboard, \
-    send_location_keyboard
+    send_location_keyboard, order_inline_keyboard
 from models import session, Generator
 from utils import update_user_language, get_user_language, get_translate, send_location_to_chat, information_message, \
     show_generators
@@ -100,7 +103,7 @@ async def calculation(message: Message, state: FSMContext):
     async with state.proxy() as data:
         current_language = data.get('user_language', default_language)
     await BotStates.calculations.set()
-    generators = session.query(Generator).all()
+    generators = session.query(Generator).order_by(Generator.power).all()
     total_generators = len(generators)
 
     start_index = 0
@@ -147,19 +150,30 @@ async def previous_page(message: Message, state: FSMContext):
 async def generator_selected(message: Message, state: FSMContext):
     data = await state.get_data()
     current_language = data.get('user_language', default_language)
-    generator_name = message.text.split(':')[1].strip()
+    generator_name = search(r'\((.*?)\)', message.text).group(1).strip()
     generator = session.query(Generator).filter_by(name=generator_name).first()
 
     if generator:
-        await message.reply(get_translate(current_language, "DETAIL_INFORMATION_ABOUT_GENERATOR") + f"\n\n" +
-                            get_translate(current_language, "TITLE_GENERATOR") + f"{generator.name}\n" +
-                            get_translate(current_language, "POWER") + f"{generator.power} кВт\n" +
-                            get_translate(current_language, "FUEL_CONSUMPTION") + f"{generator.fuel_consumption}\n" +
-                            get_translate(current_language, "HEIGHT") + f"{generator.height}\n" +
-                            get_translate(current_language, "LENGTH") + f"{generator.length}\n" +
-                            get_translate(current_language, "WIDTH") + f"{generator.width}")
+        await message.answer(  # MEDIA_URL / '',
+            get_translate(current_language, "DETAIL_INFORMATION_ABOUT_GENERATOR") + f"\n\n" +
+            get_translate(current_language, "TITLE_GENERATOR") + f"{generator.name}\n" +
+            get_translate(current_language, "POWER") + f"{generator.power} кВА\n" +
+            get_translate(current_language,
+                          "FUEL_CONSUMPTION") + f"{generator.fuel_consumption}\n" +
+            get_translate(current_language, "HEIGHT") + f"{generator.height}\n" +
+            get_translate(current_language, "LENGTH") + f"{generator.length}\n" +
+            get_translate(current_language, "WIDTH") + f"{generator.width}",
+            reply_markup=order_inline_keyboard(current_language))
     else:
         await message.reply(get_translate(current_language, "GENERATOR NOT FOUND"))
+
+
+async def order_message(query: CallbackQuery, state: FSMContext):
+    async with state.proxy() as data:
+        user_language = data.get('user_language', default_language)
+    info_text = get_translate(user_language, 'CALL_FOR_ORDER') + f'{SALES_DEPARTMENT_PHONE_NUMBER}'
+
+    await bot.answer_callback_query(query.id, info_text, True)
 
 
 async def back_to_main_menu(message: Message, state: FSMContext):

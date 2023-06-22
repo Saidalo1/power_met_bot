@@ -6,7 +6,7 @@ from config import languages, lang_values, dp
 from fsm_contexts import BotStates
 from handlers import start, select_language, incorrect_select_language, consultation, got_name, incorrect_got_name, \
     got_contact, got_address, calculation, next_page, previous_page, generator_selected, back_to_main_menu, main_menu, \
-    start_in_state
+    start_in_state, order_message
 from utils import get_translate, is_valid_name
 
 # Add LifetimeControllerMiddleware to ensure the storage is cleared correctly on restart
@@ -58,6 +58,8 @@ dp.register_message_handler(generator_selected,
                                 get_translate('ru', 'GENERATOR')),
                             content_types=ContentTypes.TEXT,
                             state=BotStates.calculations)
+
+dp.register_callback_query_handler(order_message, lambda c: c.data and c.data == 'order', state=BotStates.calculations)
 
 # Got name
 dp.register_message_handler(got_name, lambda message: is_valid_name(message.text), content_types=ContentTypes.TEXT,

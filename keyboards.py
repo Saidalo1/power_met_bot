@@ -1,7 +1,12 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
 from config import languages
 from utils import get_translate
+
+
+def order_inline_keyboard(current_language) -> InlineKeyboardMarkup:
+    return InlineKeyboardMarkup().add(
+        InlineKeyboardButton(get_translate(current_language, "ORDER"), callback_data='order'))
 
 
 def cancel_keyboard(language) -> ReplyKeyboardMarkup:
