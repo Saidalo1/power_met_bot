@@ -67,7 +67,7 @@ async def show_generators(chat_id, generators, start_index, page, total_generato
     row = []
     for generator in generators_chunk:
         button = KeyboardButton(
-            text=get_translate(current_language, 'GENERATOR') + f'{generator.power} кВА({generator.name})')
+            text=f'{generator.power} кВА({generator.name})')
         row.append(button)
         if len(row) == 3:
             buttons.append(row)

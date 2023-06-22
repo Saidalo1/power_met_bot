@@ -52,12 +52,7 @@ dp.register_message_handler(previous_page,
                             content_types=ContentTypes.TEXT, state=BotStates.calculations)
 
 # Generator Detail View
-dp.register_message_handler(generator_selected,
-                            lambda message: message.text.startswith(
-                                get_translate('en', 'GENERATOR')) or message.text.startswith(
-                                get_translate('ru', 'GENERATOR')),
-                            content_types=ContentTypes.TEXT,
-                            state=BotStates.calculations)
+dp.register_message_handler(generator_selected, content_types=ContentTypes.TEXT, state=BotStates.calculations)
 
 dp.register_callback_query_handler(order_message, lambda c: c.data and c.data == 'order', state=BotStates.calculations)
 
