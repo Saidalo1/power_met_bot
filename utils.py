@@ -67,7 +67,7 @@ async def show_generators(chat_id, generators, start_index, page, total_generato
     row = []
     for generator in generators_chunk:
         button = KeyboardButton(
-            text=f'{generator.power_kbT} кВТ / {generator.power_kbA} кВА ({generator.name})')
+            text=f'{generator.power_kbt} кВТ / {generator.power_kba} кВА ({generator.name})')
         row.append(button)
         if len(row) == 3:
             buttons.append(row)

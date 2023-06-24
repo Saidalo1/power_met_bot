@@ -37,12 +37,12 @@ class Generator(Base):
     height = Column(Integer)
     length = Column(Integer)
     width = Column(Integer)
-    power_kbT = Column(Integer)
-    power_kbA = Column(Integer)
+    power_kbt = Column(Integer)
+    power_kba = Column(Integer)
     fuel_consumption = Column(Float)
 
     def __repr__(self):
-        return f"<Generator(name='{self.name}', power={self.power_kbT}, fuel_consumption={self.fuel_consumption})>"
+        return f"<Generator(name='{self.name}', power={self.power_kbt}, fuel_consumption={self.fuel_consumption})>"
 
 
 Base.metadata.create_all(engine)
