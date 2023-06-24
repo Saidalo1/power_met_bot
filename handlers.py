@@ -105,7 +105,7 @@ async def calculation(message: Message, state: FSMContext):
     await BotStates.calculations.set()
 
     # Загрузка всех генераторов в начале и сохранение их в переменной
-    generators = session.query(Generator).order_by(Generator.power).limit(GENERATORS_PER_PAGE).all()
+    generators = session.query(Generator).order_by(Generator.power_kbT).limit(GENERATORS_PER_PAGE).all()
     total_generators = len(generators)
 
     start_index = 0
@@ -165,9 +165,10 @@ async def generator_selected(message: Message, state: FSMContext):
         await message.answer_photo(photo,
                                    get_translate(current_language, "DETAIL_INFORMATION_ABOUT_GENERATOR") + f"\n\n" +
                                    get_translate(current_language, "TITLE_GENERATOR") + f"{generator.name}\n" +
-                                   get_translate(current_language, "POWER") + f"{generator.power} кВА\n" +
                                    get_translate(current_language,
-                                                 "FUEL_CONSUMPTION") + f"{generator.fuel_consumption}\n" +
+                                                 "POWER") + f"{generator.power_kbT} кВТ / {generator.power_kbA} кВА\n" +
+                                   get_translate(current_language,
+                                                 "FUEL_CONSUMPTION") + f"{generator.fuel_consumption} Л/ч\n" +
                                    get_translate(current_language, "HEIGHT") + f"{generator.height}\n" +
                                    get_translate(current_language, "LENGTH") + f"{generator.length}\n" +
                                    get_translate(current_language, "WIDTH") + f"{generator.width}",
