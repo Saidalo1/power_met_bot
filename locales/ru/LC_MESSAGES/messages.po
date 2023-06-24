@@ -100,3 +100,21 @@ msgstr "Заказ"
 
 msgid 'CALL_FOR_ORDER'
 msgstr "Для заказа позвоните по следующему номеру:  "
+
+msgid 'MM'
+msgstr "мм"
+
+msgid 'BACK_MAIN_MENU'
+msgstr "Назад в главное меню"
+
+msgid 'BACK_TO_MENU_SELECT_LANGUAGE'
+msgstr "Назад в меню выбор языка"
+
+msgid 'BACK_TO_MENU_SELECT_CATEGORY'
+msgstr "Назад в меню выбор категории"
+
+msgid 'RESEND_YOUR_NAME'
+msgstr "Пожалуйста, пере отправьте ваше имя: "
+
+msgid 'RESEND_YOUR_CONTACT'
+msgstr "Пожалуйста, пере отправьте ваш контакт"

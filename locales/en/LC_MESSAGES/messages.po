@@ -101,3 +101,21 @@ msgstr "Order"
 
 msgid 'CALL_FOR_ORDER'
 msgstr "To order a generator, call the number: "
+
+msgid 'MM'
+msgstr "mm"
+
+msgid 'BACK_MAIN_MENU'
+msgstr "Back to main menu"
+
+msgid 'BACK_TO_MENU_SELECT_LANGUAGE'
+msgstr "Back to menu for select language"
+
+msgid 'BACK_TO_MENU_SELECT_CATEGORY'
+msgstr "Back to menu for select category"
+
+msgid 'RESEND_YOUR_NAME'
+msgstr "Please, resend your name: "
+
+msgid 'RESEND_YOUR_CONTACT'
+msgstr "Please, resend your contact: "

@@ -162,6 +162,7 @@ async def generator_selected(message: Message, state: FSMContext):
     generator = session.query(Generator).filter_by(name=generator_name).first()
 
     if generator:
+        mm = get_translate(current_language, 'MM')
         await message.answer_photo(photo,
                                    get_translate(current_language, "DETAIL_INFORMATION_ABOUT_GENERATOR") + f"\n\n" +
                                    get_translate(current_language, "TITLE_GENERATOR") + f"{generator.name}\n" +
@@ -169,9 +170,9 @@ async def generator_selected(message: Message, state: FSMContext):
                                                  "POWER") + f"{generator.power_kbt} кВТ / {generator.power_kba} кВА\n" +
                                    get_translate(current_language,
                                                  "FUEL_CONSUMPTION") + f"{generator.fuel_consumption} Л/ч\n" +
-                                   get_translate(current_language, "HEIGHT") + f"{generator.height}\n" +
-                                   get_translate(current_language, "LENGTH") + f"{generator.length}\n" +
-                                   get_translate(current_language, "WIDTH") + f"{generator.width}",
+                                   get_translate(current_language, "HEIGHT") + f"{generator.height} {mm}\n" +
+                                   get_translate(current_language, "LENGTH") + f"{generator.length} {mm}\n" +
+                                   get_translate(current_language, "WIDTH") + f"{generator.width} {mm}",
                                    reply_markup=order_inline_keyboard(current_language))
     else:
         await message.reply(get_translate(current_language, "GENERATOR NOT FOUND"))
@@ -191,26 +192,32 @@ async def back_to_main_menu(message: Message, state: FSMContext):
         current_language = data.get('user_language', default_language)
 
     if current_state == BotStates.choose_language.state:
-        await message.answer("Назад в главное меню", reply_markup=languages_keyboard())
+        await message.answer(get_translate(current_language, "BACK_MAIN_MENU"), reply_markup=languages_keyboard())
         await state.finish()
     elif current_state == BotStates.choose_category.state:
-        await message.answer("Назад в меню выбора языка", reply_markup=languages_keyboard())
+        await message.answer(get_translate(current_language, "BACK_TO_MENU_SELECT_LANGUAGE"),
+                             reply_markup=languages_keyboard())
         await BotStates.previous()
     elif current_state == BotStates.send_name.state:
-        await message.answer("Назад в меню выбора категории", reply_markup=select_category(current_language))
+        await message.answer(get_translate(current_language, "BACK_TO_MENU_SELECT_CATEGORY"),
+                             reply_markup=select_category(current_language))
         await BotStates.previous()
     elif current_state == BotStates.send_phone.state:
-        await message.answer("Пожалуйста, переотправьте ваше имя", reply_markup=cancel_keyboard(current_language))
+        await message.answer(get_translate(current_language, "RESEND_YOUR_NAME"),
+                             reply_markup=cancel_keyboard(current_language))
         await BotStates.previous()
     elif current_state == BotStates.send_address.state:
-        await message.answer("Пожалуйста, переотправьте ваш контакт",
+        await message.answer(get_translate(current_language, "RESEND_YOUR_CONTACT"),
                              reply_markup=send_contact_keyboard(current_language))
         await BotStates.previous()
     elif current_state == BotStates.calculations.state:
-        await message.answer("Назад в меню выбора категории", reply_markup=select_category(current_language))
+        await message.answer(get_translate(current_language, "BACK_TO_MENU_SELECT_CATEGORY"),
+                             reply_markup=select_category(current_language))
         await BotStates.choose_category.set()
 
 
 async def main_menu(message: Message, state: FSMContext):
-    await message.answer("Назад в главное меню", reply_markup=languages_keyboard())
+    async with state.proxy() as data:
+        current_language = data.get('user_language', default_language)
+    await message.answer(get_translate(current_language, "BACK_MAIN_MENU"), reply_markup=languages_keyboard())
     await BotStates.first()
