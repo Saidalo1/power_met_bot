@@ -10,17 +10,17 @@ def order_inline_keyboard(current_language) -> InlineKeyboardMarkup:
 
 
 def cancel_keyboard(language) -> ReplyKeyboardMarkup:
-    return ReplyKeyboardMarkup([[KeyboardButton(get_translate(language, 'BACK'))]], True, True)
+    return ReplyKeyboardMarkup([[KeyboardButton(get_translate(language, 'BACK'))]], True)
 
 
 def send_contact_keyboard(language) -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup([[KeyboardButton(get_translate(language, 'SEND_CONTACT'), request_contact=True),
-                                 KeyboardButton(get_translate(language, 'BACK'))]], True, True)
+                                 KeyboardButton(get_translate(language, 'BACK'))]], True)
 
 
 def send_location_keyboard(language) -> ReplyKeyboardMarkup:
     return ReplyKeyboardMarkup([[KeyboardButton(get_translate(language, 'SEND_LOCATION'), request_location=True),
-                                 KeyboardButton(get_translate(language, 'BACK'))]], True, True)
+                                 KeyboardButton(get_translate(language, 'BACK'))]], True)
 
 
 # Languages Keyboard

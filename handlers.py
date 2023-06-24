@@ -4,7 +4,7 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import Message, ChatType, CallbackQuery
 
 from config import start_message, LANGUAGES, bot, GROUP_CHAT_ID, GENERATORS_PER_PAGE, default_language, \
-    SALES_DEPARTMENT_PHONE_NUMBER
+    SALES_DEPARTMENT_PHONE_NUMBER, photo
 from fsm_contexts import BotStates
 from keyboards import languages_keyboard, select_category, cancel_keyboard, send_contact_keyboard, \
     send_location_keyboard, order_inline_keyboard
@@ -103,7 +103,9 @@ async def calculation(message: Message, state: FSMContext):
     async with state.proxy() as data:
         current_language = data.get('user_language', default_language)
     await BotStates.calculations.set()
-    generators = session.query(Generator).order_by(Generator.power).all()
+
+    # Загрузка всех генераторов в начале и сохранение их в переменной
+    generators = session.query(Generator).order_by(Generator.power).limit(GENERATORS_PER_PAGE).all()
     total_generators = len(generators)
 
     start_index = 0
@@ -119,14 +121,20 @@ async def next_page(message: Message, state: FSMContext):
     async with state.proxy() as data:
         current_language = data.get('user_language', default_language)
         context = await state.get_data()
-    context = context.get('context')
+        context = context.get('context')
+
     if context:
         start_index, page, total_generators = map(int, context.split(','))
         generators = session.query(Generator).all()
         start_index += GENERATORS_PER_PAGE  # Вычисляем новое значение start_index
         page += 1  # Увеличиваем значение page на 1
+
+        if start_index >= total_generators:
+            return  # Достигнуты крайние значения, прекращаем выполнение
+
         await show_generators(message.chat.id, generators, start_index, page,
                               total_generators, current_language)
+
         # Обновляем контекст состояния с новыми значениями
         await state.update_data(context=f"{start_index},{page},{total_generators}")
 
@@ -154,16 +162,16 @@ async def generator_selected(message: Message, state: FSMContext):
     generator = session.query(Generator).filter_by(name=generator_name).first()
 
     if generator:
-        await message.answer(  # MEDIA_URL / '',
-            get_translate(current_language, "DETAIL_INFORMATION_ABOUT_GENERATOR") + f"\n\n" +
-            get_translate(current_language, "TITLE_GENERATOR") + f"{generator.name}\n" +
-            get_translate(current_language, "POWER") + f"{generator.power} кВА\n" +
-            get_translate(current_language,
-                          "FUEL_CONSUMPTION") + f"{generator.fuel_consumption}\n" +
-            get_translate(current_language, "HEIGHT") + f"{generator.height}\n" +
-            get_translate(current_language, "LENGTH") + f"{generator.length}\n" +
-            get_translate(current_language, "WIDTH") + f"{generator.width}",
-            reply_markup=order_inline_keyboard(current_language))
+        await message.answer_photo(photo,
+                                   get_translate(current_language, "DETAIL_INFORMATION_ABOUT_GENERATOR") + f"\n\n" +
+                                   get_translate(current_language, "TITLE_GENERATOR") + f"{generator.name}\n" +
+                                   get_translate(current_language, "POWER") + f"{generator.power} кВА\n" +
+                                   get_translate(current_language,
+                                                 "FUEL_CONSUMPTION") + f"{generator.fuel_consumption}\n" +
+                                   get_translate(current_language, "HEIGHT") + f"{generator.height}\n" +
+                                   get_translate(current_language, "LENGTH") + f"{generator.length}\n" +
+                                   get_translate(current_language, "WIDTH") + f"{generator.width}",
+                                   reply_markup=order_inline_keyboard(current_language))
     else:
         await message.reply(get_translate(current_language, "GENERATOR NOT FOUND"))
 

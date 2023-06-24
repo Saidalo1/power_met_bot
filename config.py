@@ -1,7 +1,7 @@
 import os
 
 from aiogram import Bot, Dispatcher
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.contrib.fsm_storage.redis import RedisStorage2
 from aiogram.types import ParseMode
 from dotenv import load_dotenv
 
@@ -19,7 +19,7 @@ TOKEN = os_environ_get('TOKEN')
 
 # Telegram Bot
 bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
-dp = Dispatcher(bot, storage=MemoryStorage())
+dp = Dispatcher(bot, storage=RedisStorage2('localhost', 6379, 0))
 
 # Database settings
 DATABASE_USER = os_environ_get('DATABASE_USER')
@@ -55,4 +55,12 @@ GENERATORS_PER_PAGE = int(os_environ_get('GENERATORS_PER_PAGE'))
 SALES_DEPARTMENT_PHONE_NUMBER = os_environ_get('SALES_DP_NUM')
 
 # Media URL
-MEDIA_URL = os_environ_get('MEDIA_URL')
+MEDIA_FOLDER_NAME = os.path.dirname(os.path.abspath(__file__)) + os_environ_get('MEDIA_FOLDER_NAME')
+
+# Photo name
+GENERATOR_PHOTO_NAME = os_environ_get('GENERATOR_PHOTO_NAME')
+
+# Photo
+photo_path = MEDIA_FOLDER_NAME + GENERATOR_PHOTO_NAME
+with open(photo_path, 'rb') as photo_file:
+    photo = photo_file.read()
