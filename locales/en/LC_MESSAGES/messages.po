@@ -99,23 +99,23 @@ msgstr "Main Menu"
 msgid "ORDER"
 msgstr "Order"
 
-msgid 'CALL_FOR_ORDER'
+msgid "CALL_FOR_ORDER"
 msgstr "To order a generator, call the number: "
 
-msgid 'MM'
+msgid "MM"
 msgstr "mm"
 
-msgid 'BACK_MAIN_MENU'
+msgid "BACK_MAIN_MENU"
 msgstr "Back to main menu"
 
-msgid 'BACK_TO_MENU_SELECT_LANGUAGE'
+msgid "BACK_TO_MENU_SELECT_LANGUAGE"
 msgstr "Back to menu for select language"
 
-msgid 'BACK_TO_MENU_SELECT_CATEGORY'
+msgid "BACK_TO_MENU_SELECT_CATEGORY"
 msgstr "Back to menu for select category"
 
-msgid 'RESEND_YOUR_NAME'
+msgid "RESEND_YOUR_NAME"
 msgstr "Please, resend your name: "
 
-msgid 'RESEND_YOUR_CONTACT'
+msgid "RESEND_YOUR_CONTACT"
 msgstr "Please, resend your contact: "

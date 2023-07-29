@@ -96,23 +96,23 @@ msgstr "Bosh menu"
 msgid "ORDER"
 msgstr "Buyurtma"
 
-msgid "ORDER"
+msgid "CALL_FOR_ORDER"
 msgstr "Generator zakaz qilish uchun, shu raqamga telefon qiling: "
 
-msgid 'MM'
+msgid "MM"
 msgstr "mm"
 
-msgid 'BACK_MAIN_MENU'
+msgid "BACK_MAIN_MENU"
 msgstr "Bosh menyuga ortga"
 
-msgid 'BACK_TO_MENU_SELECT_LANGUAGE'
+msgid "BACK_TO_MENU_SELECT_LANGUAGE"
 msgstr "Til o'zgartirish menyusiga ortga"
 
-msgid 'BACK_TO_MENU_SELECT_CATEGORY'
+msgid "BACK_TO_MENU_SELECT_CATEGORY"
 msgstr "Kategoriya tanlash menyusiga ortga"
 
-msgid 'RESEND_YOUR_NAME'
+msgid "RESEND_YOUR_NAME"
 msgstr "Iltimos, ismingizni qayta jo'nating: "
 
-msgid 'RESEND_YOUR_CONTACT'
+msgid "RESEND_YOUR_CONTACT"
 msgstr "Iltimos, kontaktingizni qayta jo'nating: "

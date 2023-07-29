@@ -8,7 +8,7 @@ from config import start_message, LANGUAGES, bot, GROUP_CHAT_ID, GENERATORS_PER_
 from fsm_contexts import BotStates
 from keyboards import languages_keyboard, select_category, cancel_keyboard, send_contact_keyboard, \
     send_location_keyboard, order_inline_keyboard
-from models import session, Generator
+from models import session, Generator, UserLanguage
 from utils import update_user_language, get_user_language, get_translate, send_location_to_chat, information_message, \
     show_generators
 
@@ -221,3 +221,24 @@ async def main_menu(message: Message, state: FSMContext):
         current_language = data.get('user_language', default_language)
     await message.answer(get_translate(current_language, "BACK_MAIN_MENU"), reply_markup=languages_keyboard())
     await BotStates.first()
+
+
+async def send_messages_to_all_users(message: Message, state: FSMContext):
+    all_user_languages = session.query(UserLanguage).all()
+    chat_ids = [user_language.chat_id for user_language in all_user_languages]
+
+    # Отправьте сообщение всем пользователям
+    message_text = "Привет! Это ваше рассылаемое сообщение."
+    batch_size = 50  # Максимальное количество пользователей в одном батче
+
+    async def send_message_batch(users_batch):
+        for chat_id in users_batch:
+            try:
+                await bot.send_message(chat_id, message_text)
+            except Exception as e:
+                print(f"Не удалось отправить сообщение пользователю с chat_id={chat_id}. Ошибка: {e}")
+
+    # Разделение пользователей на батчи и отправка асинхронно
+    for i in range(0, len(chat_ids), batch_size):
+        users_batch = chat_ids[i:i + batch_size]
+        await send_message_batch(users_batch)

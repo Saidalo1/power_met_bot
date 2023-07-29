@@ -54,7 +54,7 @@ dp.register_message_handler(previous_page,
 # Generator Detail View
 dp.register_message_handler(generator_selected, content_types=ContentTypes.TEXT, state=BotStates.calculations)
 
-dp.register_callback_query_handler(order_message, lambda c: c.data and c.data == 'order', state=BotStates.calculations)
+dp.register_callback_query_handler(order_message, lambda c: c.data and c.data == 'order', state='*')
 
 # Got name
 dp.register_message_handler(got_name, lambda message: is_valid_name(message.text), content_types=ContentTypes.TEXT,
