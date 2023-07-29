@@ -61,6 +61,6 @@ MEDIA_FOLDER_NAME = os.path.dirname(os.path.abspath(__file__)) + os_environ_get(
 GENERATOR_PHOTO_NAME = os_environ_get('GENERATOR_PHOTO_NAME')
 
 # Photo
-photo_path = MEDIA_FOLDER_NAME + GENERATOR_PHOTO_NAME
+photo_path = os.path.join(MEDIA_FOLDER_NAME, GENERATOR_PHOTO_NAME)
 with open(photo_path, 'rb') as photo_file:
     photo = photo_file.read()
