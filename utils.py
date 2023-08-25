@@ -74,7 +74,7 @@ async def show_generators(chat_id, generators, start_index, page, total_generato
             row = []
 
     if row:
-        buttons.append(row)  # Добавление последнего ряда, если он не пустой
+        buttons.append(row)
 
     if start_index + GENERATORS_PER_PAGE < total_generators:
         buttons.append([KeyboardButton(text=get_translate(current_language, "NEXT"))])
