@@ -22,11 +22,7 @@ bot = Bot(TOKEN, parse_mode=ParseMode.HTML)
 dp = Dispatcher(bot, storage=RedisStorage2('localhost', 6379, 0))
 
 # Database settings
-DATABASE_USER = os_environ_get('DATABASE_USER')
-DATABASE_PASS = os_environ_get('DATABASE_PASS')
-DATABASE_HOST = os_environ_get('DATABASE_HOST')
 DATABASE_NAME = os_environ_get('DATABASE_NAME')
-DATABASE_PORT = os_environ_get('DATABASE_PORT')
 
 # Group Chat ID
 GROUP_CHAT_ID = f"-100{os_environ_get('GROUP_CHAT_ID')}"

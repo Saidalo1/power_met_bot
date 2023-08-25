@@ -8,3 +8,9 @@ class BotStates(StatesGroup):
     send_phone = State()
     send_address = State()
     calculations = State()
+
+
+class SpreadingMessages(StatesGroup):
+    send_message_uz = State()
+    send_message_ru = State()
+    send_message_en = State()

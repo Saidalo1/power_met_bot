@@ -5,10 +5,10 @@ from aiogram.types import Message, ChatType, CallbackQuery
 
 from config import start_message, LANGUAGES, bot, GROUP_CHAT_ID, GENERATORS_PER_PAGE, default_language, \
     SALES_DEPARTMENT_PHONE_NUMBER, photo
-from fsm_contexts import BotStates
+from fsm_contexts import BotStates, SpreadingMessages
 from keyboards import languages_keyboard, select_category, cancel_keyboard, send_contact_keyboard, \
     send_location_keyboard, order_inline_keyboard
-from models import session, Generator, UserLanguage
+from models import session, Generator  # , UserLanguage
 from utils import update_user_language, get_user_language, get_translate, send_location_to_chat, information_message, \
     show_generators
 
@@ -104,7 +104,6 @@ async def calculation(message: Message, state: FSMContext):
         current_language = data.get('user_language', default_language)
     await BotStates.calculations.set()
 
-    # Загрузка всех генераторов в начале и сохранение их в переменной
     generators = session.query(Generator).order_by(Generator.power_kbt).limit(GENERATORS_PER_PAGE).all()
     total_generators = len(generators)
 
@@ -223,22 +222,71 @@ async def main_menu(message: Message, state: FSMContext):
     await BotStates.first()
 
 
-async def send_messages_to_all_users(message: Message, state: FSMContext):
-    all_user_languages = session.query(UserLanguage).all()
-    chat_ids = [user_language.chat_id for user_language in all_user_languages]
+async def send_message_to_all_users_get(message: Message, state: FSMContext):
+    async with state.proxy() as data:
+        current_language = data.get('user_language', default_language)
+    await SpreadingMessages.send_message_uz.set()
+    send_address_text = get_translate(current_language, 'SEND_SPREADING_MESSAGE_UZ')
+    await message.answer(send_address_text, reply_markup=cancel_keyboard(current_language))
 
-    # Отправьте сообщение всем пользователям
-    message_text = "Привет! Это ваше рассылаемое сообщение."
-    batch_size = 50  # Максимальное количество пользователей в одном батче
-
-    async def send_message_batch(users_batch):
-        for chat_id in users_batch:
-            try:
-                await bot.send_message(chat_id, message_text)
-            except Exception as e:
-                print(f"Не удалось отправить сообщение пользователю с chat_id={chat_id}. Ошибка: {e}")
-
-    # Разделение пользователей на батчи и отправка асинхронно
-    for i in range(0, len(chat_ids), batch_size):
-        users_batch = chat_ids[i:i + batch_size]
-        await send_message_batch(users_batch)
+# async def send_message_to_all_users_uz(message: Message, state: FSMContext):
+#     async with state.proxy() as data:
+#         current_language = data.get('user_language', default_language)
+#         data['message_in_uz_lang'] = message.text
+#     await SpreadingMessages.send_message_ru()
+#     send_address_text = get_translate(current_language, 'SEND_SPREADING_MESSAGE_RU')
+#     await message.answer(send_address_text, reply_markup=cancel_keyboard(current_language))
+#
+#
+# async def send_message_to_all_users_ru(message: Message, state: FSMContext):
+#     async with state.proxy() as data:
+#         current_language = data.get('user_language', default_language)
+#         data['message_in_ru_lang'] = message.text
+#     await SpreadingMessages.send_message_en.set()
+#     send_address_text = get_translate(current_language, 'SEND_SPREADING_MESSAGE_EN')
+#     await message.answer(send_address_text, reply_markup=cancel_keyboard(current_language))
+#
+#
+# async def get_message_to_send_to_all_users(message: Message, state: FSMContext):
+#     async with state.proxy() as data:
+#         current_language = data.get('user_language', default_language)
+#         message_in_en_lang = message.text
+#         message_in_uz_lang = data.get('message_in_uz_lang')
+#         message_in_ru_lang = data.get('message_in_ru_lang')
+#
+#     all_user_languages = await session.query(UserLanguage).all()
+#
+#     chat_ids_by_language = {}
+#     for user_language in all_user_languages:
+#         language = user_language.language
+#         chat_id = user_language.chat_id
+#         if language not in chat_ids_by_language:
+#             chat_ids_by_language[language] = []
+#         chat_ids_by_language[language].append(chat_id)
+#
+#     messages_by_language = {
+#         'uz': message_in_uz_lang,
+#         'ru': message_in_ru_lang,
+#         'en': message_in_en_lang
+#     }
+#
+#     for language, chat_ids in chat_ids_by_language.items():
+#         message_text = messages_by_language[language]
+#         if not message_text:
+#             continue
+#
+#         batch_size = 50
+#
+#         async def send_message_batch(user_batch):
+#             for user_chat_id in user_batch:
+#                 try:
+#                     await bot.send_message(user_chat_id, message_text)
+#                 except Exception as e:
+#                     print(f"Failed to send message to user with chat_id={user_chat_id}. Error: {e}")
+#
+#         for i in range(0, len(chat_ids), batch_size):
+#             users_batch = chat_ids[i:i + batch_size]
+#             await send_message_batch(users_batch)
+#
+#     successfully_spread_text = get_translate(current_language, 'SUCCESSFULLY_SENT_SPREAD_TEXT')
+#     await message.answer(successfully_spread_text)

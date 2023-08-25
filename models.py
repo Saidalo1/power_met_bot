@@ -3,10 +3,10 @@ from sqlalchemy import Index
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-from config import DATABASE_USER, DATABASE_PASS, DATABASE_HOST, DATABASE_PORT, DATABASE_NAME
+from config import DATABASE_NAME
 
 Base = declarative_base()
-engine = create_engine(F'postgresql://{DATABASE_USER}:{DATABASE_PASS}@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}')
+engine = create_engine(F'sqlite:///{DATABASE_NAME}.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
