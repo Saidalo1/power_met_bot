@@ -66,17 +66,19 @@ msgstr "Choose a generator"
 msgid "GENERATOR"
 msgstr "Generator: "
 
-msgid "DETAIL_INFORMATION_ABOUT_GENERATOR"
-msgstr "Detail information about the generator: "
 
 msgid "TITLE_GENERATOR"
-msgstr "Title of generator: "
+msgstr "Model: "
 
 msgid "POWER"
-msgstr "Power: "
+msgstr "Power"
 
-msgid "FUEL_CONSUMPTION"
-msgstr "Fuel consumption: "
+msgid "FUEL_TYPE"
+msgstr "Fuel type: "
+
+msgid "HEIGHT_LENGTH_WIDTH"
+msgstr "Size(H/L/W): "
+
 
 msgid "GENERATOR NOT FOUND"
 msgstr "Generator not found!"
@@ -119,3 +121,24 @@ msgstr "Please, resend your name: "
 
 msgid "RESEND_YOUR_CONTACT"
 msgstr "Please, resend your contact: "
+
+msgid "CATALOG"
+msgstr "Catalog"
+
+msgid "CHOOSE_CATEGORY_OF_GENERATORS"
+msgstr "Please, choose the category of generators: "
+
+msgid "GENERATOR_NOT_FOUND"
+msgstr "Sorry, but generators not found!"
+
+msgid "Diesel"
+msgstr "Diesel"
+
+msgid "Gasoline"
+msgstr "Gasoline"
+
+msgid "WORKING_HOURS"
+msgstr "Working hours"
+
+msgid "FUEL_CONSUMPTION"
+msgstr "Fuel consumption(l/h %75)"

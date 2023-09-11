@@ -27,9 +27,6 @@ DATABASE_NAME = os_environ_get('DATABASE_NAME')
 # Group Chat ID
 GROUP_CHAT_ID = f"-100{os_environ_get('GROUP_CHAT_ID')}"
 
-# Greeting Text
-greeting_text = os_environ_get('GREETING_TEXT')
-
 # Start Message
 start_message = os_environ_get('START_MESSAGE')
 
@@ -53,10 +50,5 @@ SALES_DEPARTMENT_PHONE_NUMBER = os_environ_get('SALES_DP_NUM')
 # Media URL
 MEDIA_FOLDER_NAME = os.path.dirname(os.path.abspath(__file__)) + os_environ_get('MEDIA_FOLDER_NAME')
 
-# Photo name
-GENERATOR_PHOTO_NAME = os_environ_get('GENERATOR_PHOTO_NAME')
-
 # Photo
-photo_path = os.path.join(MEDIA_FOLDER_NAME, GENERATOR_PHOTO_NAME)
-with open(photo_path, 'rb') as photo_file:
-    photo = photo_file.read()
+photo_path = os.path.join(MEDIA_FOLDER_NAME)

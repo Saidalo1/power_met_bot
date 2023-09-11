@@ -5,8 +5,9 @@ from aiogram.utils import executor
 from config import languages, lang_values, dp
 from fsm_contexts import BotStates
 from handlers import start, select_language, incorrect_select_language, consultation, got_name, incorrect_got_name, \
-    got_contact, got_address, calculation, next_page, previous_page, generator_selected, back_to_main_menu, main_menu, \
-    start_in_state, order_message
+    got_contact, got_address, show_generators, next_page, previous_page, generator_selected, back_to_main_menu, \
+    main_menu, \
+    start_in_state, order_message, show_categories_catalog
 from utils import get_translate, is_valid_name
 
 # Add LifetimeControllerMiddleware to ensure the storage is cleared correctly on restart
@@ -35,24 +36,30 @@ dp.register_message_handler(consultation,
                             lambda message: message.text in (get_translate(language, 'CONSULT') for language in
                                                              lang_values),
                             content_types=ContentTypes.TEXT, state=BotStates.choose_category)
-# Selected category
-dp.register_message_handler(calculation,
-                            lambda message: message.text in (get_translate(language, 'CALCULATE') for language in
+
+# Catalog
+dp.register_message_handler(show_categories_catalog,
+                            lambda message: message.text in (get_translate(language, 'CATALOG') for language in
                                                              lang_values),
                             content_types=ContentTypes.TEXT, state=BotStates.choose_category)
+
+# Selected category
+dp.register_message_handler(show_generators, content_types=ContentTypes.TEXT,
+                            state=BotStates.show_categories_of_generators)
 
 # Pages
 dp.register_message_handler(next_page,
                             lambda message: message.text in (get_translate(language, 'NEXT') for language in
                                                              lang_values),
-                            content_types=ContentTypes.TEXT, state=BotStates.calculations)
+                            content_types=ContentTypes.TEXT, state=BotStates.selected_category_of_generators)
 dp.register_message_handler(previous_page,
                             lambda message: message.text in (get_translate(language, 'PREVIOUS') for language in
                                                              lang_values),
-                            content_types=ContentTypes.TEXT, state=BotStates.calculations)
+                            content_types=ContentTypes.TEXT, state=BotStates.selected_category_of_generators)
 
 # Generator Detail View
-dp.register_message_handler(generator_selected, content_types=ContentTypes.TEXT, state=BotStates.calculations)
+dp.register_message_handler(generator_selected, content_types=ContentTypes.TEXT,
+                            state=BotStates.selected_category_of_generators)
 
 dp.register_callback_query_handler(order_message, lambda c: c.data and c.data == 'order', state='*')
 

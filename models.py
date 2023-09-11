@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, String, create_engine, Float, BigInteger
+from sqlalchemy import Column, Integer, String, create_engine, Float, BigInteger, ForeignKey
 from sqlalchemy import Index
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, relationship
 
 from config import DATABASE_NAME
 
@@ -29,17 +29,42 @@ class UserLanguage(Base):
         return f'<UserLanguage(chat_id={self.chat_id}, language={self.language})>'
 
 
+class Category(Base):
+    __tablename__ = 'categories'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, unique=True)
+    image = Column(String)
+    generators = relationship('Generator', back_populates='category')
+    generator_field_name = Column(String)
+
+
+class EngineType(Base):
+    __tablename__ = 'engine_types'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, unique=True)
+    generators = relationship('Generator', back_populates='engine_type')
+
+    def __init__(self, name):
+        self.name = name
+
+    def __repr__(self):
+        return self.name
+
+
 class Generator(Base):
     __tablename__ = 'generators'
 
     id = Column(Integer, primary_key=True)
     name = Column(String, index=True)
-    height = Column(Integer)
-    length = Column(Integer)
-    width = Column(Integer)
-    power_kbt = Column(Integer)
-    power_kba = Column(Integer)
+    size = Column(String)
+    power = Column(String)
     fuel_consumption = Column(Float)
+    category_id = Column(Integer, ForeignKey('categories.id'))
+    category = relationship('Category', back_populates='generators')
+    engine_type_id = Column(Integer, ForeignKey('engine_types.id'))
+    engine_type = relationship('EngineType', back_populates='generators')
 
     def __repr__(self):
         return f"<Generator(name='{self.name}', power={self.power_kbt}, fuel_consumption={self.fuel_consumption})>"

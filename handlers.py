@@ -2,15 +2,16 @@ from re import search
 
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message, ChatType, CallbackQuery
+from sqlalchemy.exc import NoResultFound
 
 from config import start_message, LANGUAGES, bot, GROUP_CHAT_ID, GENERATORS_PER_PAGE, default_language, \
-    SALES_DEPARTMENT_PHONE_NUMBER, photo
+    SALES_DEPARTMENT_PHONE_NUMBER, photo_path
 from fsm_contexts import BotStates, SpreadingMessages
 from keyboards import languages_keyboard, select_category, cancel_keyboard, send_contact_keyboard, \
-    send_location_keyboard, order_inline_keyboard
-from models import session, Generator  # , UserLanguage
+    send_location_keyboard, order_inline_keyboard, categories_of_generators_kb
+from models import session, Generator, Category  # , UserLanguage
 from utils import update_user_language, get_user_language, get_translate, send_location_to_chat, information_message, \
-    show_generators
+    show_generators_fc
 
 
 async def start(message: Message):
@@ -99,21 +100,40 @@ async def got_address(message: Message, state: FSMContext):
     await message.answer(get_translate(current_language, 'GREETING_TEXT'), reply_markup=select_category_kb)
 
 
-async def calculation(message: Message, state: FSMContext):
+async def show_generators(message: Message, state: FSMContext):
+    try:
+        selected_category = session.query(Category).filter(Category.name == message.text).one()
+        selected_category_id = selected_category.id
+        async with state.proxy() as data:
+            current_language = data.get('user_language', default_language)
+            # data['current_category'] = selected_category
+        await BotStates.selected_category_of_generators.set()
+
+        generators = session.query(Generator).filter_by(category_id=selected_category_id).order_by(
+            Generator.size).limit(GENERATORS_PER_PAGE).all()
+        total_generators = len(generators)
+
+        start_index = 0
+        page = 1
+
+        async with state.proxy() as data:
+            data['context'] = f"{start_index},{page},{total_generators}"
+
+        await show_generators_fc(message.chat.id, generators, start_index, page, total_generators, current_language)
+    except NoResultFound:
+        pass
+
+
+async def show_categories_catalog(message: Message, state: FSMContext):
     async with state.proxy() as data:
         current_language = data.get('user_language', default_language)
-    await BotStates.calculations.set()
+    await BotStates.show_categories_of_generators.set()
 
-    generators = session.query(Generator).order_by(Generator.power_kbt).limit(GENERATORS_PER_PAGE).all()
-    total_generators = len(generators)
+    categories = session.query(Category).all()
 
-    start_index = 0
-    page = 1
+    kb = categories_of_generators_kb(current_language, categories)
 
-    async with state.proxy() as data:
-        data['context'] = f"{start_index},{page},{total_generators}"
-
-    await show_generators(message.chat.id, generators, start_index, page, total_generators, current_language)
+    await message.answer(get_translate(current_language, 'CHOOSE_CATEGORY_OF_GENERATORS'), reply_markup=kb)
 
 
 async def next_page(message: Message, state: FSMContext):
@@ -131,8 +151,8 @@ async def next_page(message: Message, state: FSMContext):
         if start_index >= total_generators:
             return  # Достигнуты крайние значения, прекращаем выполнение
 
-        await show_generators(message.chat.id, generators, start_index, page,
-                              total_generators, current_language)
+        await show_generators_fc(message.chat.id, generators, start_index, page,
+                                 total_generators, current_language)
 
         # Обновляем контекст состояния с новыми значениями
         await state.update_data(context=f"{start_index},{page},{total_generators}")
@@ -148,8 +168,8 @@ async def previous_page(message: Message, state: FSMContext):
         generators = session.query(Generator).all()
         start_index -= GENERATORS_PER_PAGE  # Вычисляем новое значение start_index
         page -= 1  # Уменьшаем значение page на 1
-        await show_generators(message.chat.id, generators, start_index, page,
-                              total_generators, current_language)
+        await show_generators_fc(message.chat.id, generators, start_index, page,
+                                 total_generators, current_language)
         # Обновляем контекст состояния с новыми значениями
         await state.update_data(context=f"{start_index},{page},{total_generators}")
 
@@ -159,19 +179,21 @@ async def generator_selected(message: Message, state: FSMContext):
     current_language = data.get('user_language', default_language)
     generator_name = search(r'\((.*?)\)', message.text).group(1).strip()
     generator = session.query(Generator).filter_by(name=generator_name).first()
+    photo_file_path = photo_path + generator.category.image
+    with open(photo_file_path, 'rb') as photo_file:
+        photo = photo_file.read()
 
     if generator:
-        mm = get_translate(current_language, 'MM')
         await message.answer_photo(photo,
-                                   get_translate(current_language, "DETAIL_INFORMATION_ABOUT_GENERATOR") + f"\n\n" +
                                    get_translate(current_language, "TITLE_GENERATOR") + f"{generator.name}\n" +
                                    get_translate(current_language,
-                                                 "POWER") + f"{generator.power_kbt} кВТ / {generator.power_kba} кВА\n" +
+                                                 "POWER") + f"(кВТ/кВА): {generator.power} \n" +
                                    get_translate(current_language,
-                                                 "FUEL_CONSUMPTION") + f"{generator.fuel_consumption} Л/ч\n" +
-                                   get_translate(current_language, "HEIGHT") + f"{generator.height} {mm}\n" +
-                                   get_translate(current_language, "LENGTH") + f"{generator.length} {mm}\n" +
-                                   get_translate(current_language, "WIDTH") + f"{generator.width} {mm}",
+                                                 generator.category.generator_field_name) + f": {generator.fuel_consumption}\n" +
+                                   get_translate(current_language,
+                                                 "FUEL_TYPE") + f"{get_translate(current_language, str(generator.engine_type))}\n" +
+                                   get_translate(current_language,
+                                                 "HEIGHT_LENGTH_WIDTH") + f"{generator.size}",
                                    reply_markup=order_inline_keyboard(current_language))
     else:
         await message.reply(get_translate(current_language, "GENERATOR NOT FOUND"))
@@ -197,6 +219,10 @@ async def back_to_main_menu(message: Message, state: FSMContext):
         await message.answer(get_translate(current_language, "BACK_TO_MENU_SELECT_LANGUAGE"),
                              reply_markup=languages_keyboard())
         await BotStates.previous()
+    elif current_state == BotStates.show_categories_of_generators.state:
+        await message.answer(get_translate(current_language, 'GREETING_TEXT'),
+                             reply_markup=select_category(current_language))
+        await BotStates.choose_category.set()
     elif current_state == BotStates.send_name.state:
         await message.answer(get_translate(current_language, "BACK_TO_MENU_SELECT_CATEGORY"),
                              reply_markup=select_category(current_language))
@@ -209,10 +235,10 @@ async def back_to_main_menu(message: Message, state: FSMContext):
         await message.answer(get_translate(current_language, "RESEND_YOUR_CONTACT"),
                              reply_markup=send_contact_keyboard(current_language))
         await BotStates.previous()
-    elif current_state == BotStates.calculations.state:
-        await message.answer(get_translate(current_language, "BACK_TO_MENU_SELECT_CATEGORY"),
-                             reply_markup=select_category(current_language))
-        await BotStates.choose_category.set()
+    elif current_state == BotStates.selected_category_of_generators.state:
+        await message.answer(get_translate(current_language, 'CHOOSE_CATEGORY_OF_GENERATORS'),
+                             reply_markup=categories_of_generators_kb(current_language, session.query(Category).all()))
+        await BotStates.show_categories_of_generators.set()
 
 
 async def main_menu(message: Message, state: FSMContext):

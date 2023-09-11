@@ -1,4 +1,5 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
+from sqlalchemy.orm import query
 
 from config import languages
 from utils import get_translate
@@ -34,7 +35,15 @@ def languages_keyboard() -> ReplyKeyboardMarkup:
 def select_category(language) -> ReplyKeyboardMarkup:
     categories_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True, row_width=2)
     buttons = [(get_translate(language, "CONSULT")),
-               (get_translate(language, "CALCULATE"))]
+               (get_translate(language, "CATALOG")), ]
+    categories_kb.add(*buttons)
+    categories_kb.add(KeyboardButton(get_translate(language, 'BACK')))
+    return categories_kb
+
+
+def categories_of_generators_kb(language, generators: query) -> ReplyKeyboardMarkup:
+    categories_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True, row_width=2)
+    buttons = [generator.name for generator in generators]
     categories_kb.add(*buttons)
     categories_kb.add(KeyboardButton(get_translate(language, 'BACK')))
     return categories_kb

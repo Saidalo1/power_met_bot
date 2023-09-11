@@ -75,15 +75,6 @@ msgstr "Uzunlik: "
 msgid "WIDTH"
 msgstr "Kengligi: "
 
-msgid "TITLE_GENERATOR"
-msgstr "Generator nomi: "
-
-msgid "POWER"
-msgstr "Quvvati: "
-
-msgid "FUEL_CONSUMPTION"
-msgstr "Yoqilg'i iste'moli: "
-
 msgid "DETAIL_INFORMATION_ABOUT_GENERATOR"
 msgstr "Generator haqida batafsil ma'lumot: "
 
@@ -116,3 +107,33 @@ msgstr "Iltimos, ismingizni qayta jo'nating: "
 
 msgid "RESEND_YOUR_CONTACT"
 msgstr "Iltimos, kontaktingizni qayta jo'nating: "
+
+msgid "CATALOG"
+msgstr "Katalog"
+
+msgid "CHOOSE_CATEGORY_OF_GENERATORS"
+msgstr "Iltimos, generatorlar kategoriyasini tanlang: "
+
+msgid "GENERATOR_NOT_FOUND"
+msgstr "Kechirasiz, lekin generatorlar topilmadi!"
+
+msgid "TITLE_GENERATOR"
+msgstr "Model: "
+
+msgid "POWER"
+msgstr "Quvvati"
+
+msgid "FUEL_TYPE"
+msgstr "Yoqilg'i turi: "
+
+msgid "HEIGHT_LENGTH_WIDTH"
+msgstr "Hajmi (U/K/B): "
+
+msgid "Diesel"
+msgstr "Dizel"
+
+msgid "WORKING_HOURS"
+msgstr "Ishlash vaqti"
+
+msgid "FUEL_CONSUMPTION"
+msgstr "Iste'mol(l/s %75)"

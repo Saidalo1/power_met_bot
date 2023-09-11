@@ -61,13 +61,13 @@ def information_message(user_full_name, user_phone_number):
            f'📞 Контакт: {user_phone_number} \n'
 
 
-async def show_generators(chat_id, generators, start_index, page, total_generators, current_language):
+async def show_generators_fc(chat_id, generators, start_index, page, total_generators, current_language):
     generators_chunk = generators[start_index:start_index + GENERATORS_PER_PAGE]
     buttons = []
     row = []
     for generator in generators_chunk:
         button = KeyboardButton(
-            text=f'{generator.power_kbt} кВТ / {generator.power_kba} кВА ({generator.name})')
+            text=f'{generator.power} кВТ / кВА ({generator.name})')
         row.append(button)
         if len(row) == 3:
             buttons.append(row)
@@ -85,7 +85,6 @@ async def show_generators(chat_id, generators, start_index, page, total_generato
     buttons.append([KeyboardButton(get_translate(current_language, 'MAIN_MENU'))])
     buttons.append([KeyboardButton(get_translate(current_language, 'BACK'))])
 
-    # Создание клавиатуры с кнопками
     keyboard = ReplyKeyboardMarkup(keyboard=buttons, resize_keyboard=True, row_width=3)
 
     await bot.send_message(chat_id, get_translate(current_language, "CURRENT_PAGE") +

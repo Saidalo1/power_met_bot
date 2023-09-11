@@ -7,7 +7,8 @@ class BotStates(StatesGroup):
     send_name = State()
     send_phone = State()
     send_address = State()
-    calculations = State()
+    show_categories_of_generators = State()
+    selected_category_of_generators = State()
 
 
 class SpreadingMessages(StatesGroup):
