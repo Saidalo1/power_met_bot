@@ -240,4 +240,4 @@ cython_debug/
 .idea/
 
 # Database
-power_met_bot.db
+#power_met_bot.db
