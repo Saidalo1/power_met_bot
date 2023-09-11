@@ -142,3 +142,9 @@ msgstr "Working hours"
 
 msgid "FUEL_CONSUMPTION"
 msgstr "Fuel consumption(l/h %75)"
+
+msgid "PORTABLE(PETROL)"
+msgstr "PORTABLE(PETROL)"
+
+msgid "PORTABLE(DIESEL)"
+msgstr "PORTABLE(DIESEL)"

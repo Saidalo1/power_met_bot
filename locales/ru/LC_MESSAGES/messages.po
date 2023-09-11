@@ -140,3 +140,15 @@ msgstr "Время работы"
 
 msgid "FUEL_CONSUMPTION"
 msgstr "Потребление(л/ч %75)"
+
+msgid "PORTABLE(PETROL)"
+msgstr "ПОРТАТИВНЫЕ(БЕНЗИН)"
+
+msgid "PORTABLE(DIESEL)"
+msgstr "ПОРТАТИВНЫЕ(ДИЗЕЛЬ)"
+
+msgid "ПОРТАТИВНЫЕ(БЕНЗИН)"
+msgstr "PORTABLE(PETROL)"
+
+msgid "ПОРТАТИВНЫЕ(ДИЗЕЛЬ)"
+msgstr "PORTABLE(DIESEL)"

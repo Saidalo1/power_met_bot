@@ -137,3 +137,15 @@ msgstr "Ishlash vaqti"
 
 msgid "FUEL_CONSUMPTION"
 msgstr "Iste'mol(l/s %75)"
+
+msgid "PORTABLE(PETROL)"
+msgstr "PORTATIV(YOQILG'I)"
+
+msgid "PORTABLE(DIESEL)"
+msgstr "PORTATIV(DIZEL)"
+
+msgid "PORTATIV(YOQILG'I)"
+msgstr "PORTABLE(PETROL)"
+
+msgid "PORTATIV(DIZEL)"
+msgstr "PORTABLE(DIESEL)"

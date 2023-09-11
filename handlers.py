@@ -102,11 +102,11 @@ async def got_address(message: Message, state: FSMContext):
 
 async def show_generators(message: Message, state: FSMContext):
     try:
-        selected_category = session.query(Category).filter(Category.name == message.text).one()
-        selected_category_id = selected_category.id
         async with state.proxy() as data:
             current_language = data.get('user_language', default_language)
-            # data['current_category'] = selected_category
+        message_text = get_translate(current_language, message.text)
+        selected_category = session.query(Category).filter(Category.name == message_text).one()
+        selected_category_id = selected_category.id
         await BotStates.selected_category_of_generators.set()
 
         generators = session.query(Generator).filter_by(category_id=selected_category_id).order_by(

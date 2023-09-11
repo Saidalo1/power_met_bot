@@ -43,7 +43,7 @@ def select_category(language) -> ReplyKeyboardMarkup:
 
 def categories_of_generators_kb(language, generators: query) -> ReplyKeyboardMarkup:
     categories_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True, row_width=2)
-    buttons = [generator.name for generator in generators]
+    buttons = [get_translate(language, str(generator.name)) for generator in generators]
     categories_kb.add(*buttons)
     categories_kb.add(KeyboardButton(get_translate(language, 'BACK')))
     return categories_kb
