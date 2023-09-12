@@ -180,7 +180,7 @@ async def generator_selected(message: Message, state: FSMContext):
     current_language = data.get('user_language', default_language)
     generator_name = search(r'\((.*?)\)', message.text).group(1).strip()
     generator = session.query(Generator).filter_by(name=generator_name).first()
-    photo_file_path = photo_path + generator.category.image
+    photo_file_path = f'{photo_path}/' + f'{generator.category.image}'
     with open(photo_file_path, 'rb') as photo_file:
         photo = photo_file.read()
 

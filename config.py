@@ -50,5 +50,7 @@ SALES_DEPARTMENT_PHONE_NUMBER = os_environ_get('SALES_DP_NUM')
 # Media URL
 MEDIA_FOLDER_NAME = os.path.dirname(os.path.abspath(__file__)) + os_environ_get('MEDIA_FOLDER_NAME')
 
-# Photo
-photo_path = os.path.join(MEDIA_FOLDER_NAME)
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# Формируйте путь к файлу с учетом текущей директории и папки media
+photo_path = os.path.join(current_directory, 'media')
