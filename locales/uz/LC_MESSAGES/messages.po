@@ -19,7 +19,7 @@ msgstr ""
 "Generated-By: Babel 2.9.1\n"
 
 msgid "GREETING_TEXT"
-msgstr "Salom! Sizni POWERMET INTERNATIONAL aksiyasi kutib oladi, biz benzin va dizel generatorlariga ixtisoslashganmiz, bizning xizmatimizda siz maslahat olish yoki o'zingiz uchun generator tanlash imkoniga egasiz🏭"
+msgstr "MChJ QKning rasmiy boti \"POWER MET INTERNATIONAL\" biz keng assortimentdagi sanoat dizel generatorlarini ishlab chiqarish va import qilish bilan shug'ullanamiz."
 
 msgid "ERROR_LANGUAGE"
 msgstr "❌ Xato, ko'rib turganicha, xato kiritdingiz! Iltimos, tugmalar yordamida variantlardan birini tanlang. 👇"

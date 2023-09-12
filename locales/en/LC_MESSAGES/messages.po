@@ -19,7 +19,7 @@ msgstr ""
 "Generated-By: Babel 2.9.1\n"
 
 msgid "GREETING_TEXT"
-msgstr "Hello! You are welcomed by the campaign - POWERMET INTERNATIONAL, we specialize in gasoline and diesel generators, on our service you have the opportunity to get advice or choose a generator for yourself🏭"
+msgstr "The official bot of the company JV LLC \"POWER MET INTERNATIONAL\", we are engaged in the production and import of industrial diesel generators in a wide range on a turnkey basis"
 
 msgid "ERROR_LANGUAGE"
 msgstr "❌ Oops, it seems you entered incorrectly! Please select one of the options using the buttons. 👇"
