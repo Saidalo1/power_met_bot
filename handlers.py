@@ -2,6 +2,7 @@ from re import search
 
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message, ChatType, CallbackQuery
+from sqlalchemy import asc
 from sqlalchemy.exc import NoResultFound
 
 from config import start_message, LANGUAGES, bot, GROUP_CHAT_ID, GENERATORS_PER_PAGE, default_language, \
@@ -110,7 +111,7 @@ async def show_generators(message: Message, state: FSMContext):
         await BotStates.selected_category_of_generators.set()
 
         generators = session.query(Generator).filter_by(category_id=selected_category_id).order_by(
-            Generator.size).limit(GENERATORS_PER_PAGE).all()
+            Generator.fuel_consumption).limit(GENERATORS_PER_PAGE).all()
         total_generators = len(generators)
 
         start_index = 0
